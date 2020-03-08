@@ -28,7 +28,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           env:
             - name: VARIABLE_TO_CHECK
-              value: "hey, Bro"
+              value: {{ .Values.VALUE_TO_SET }}
+            - name: SERVICE_PORT
+              value: "80"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

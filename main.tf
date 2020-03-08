@@ -75,6 +75,33 @@ resource "aws_ecr_repository" "backend" {
   }
 }
 
+
+resource "helm_release" "backend" {
+  name  = "test-backend"
+  chart = "./backend/chart"
+
+  set {
+    name  = "service.type"
+    value = "LoadBalancer"
+  }
+
+  set {
+    name  = "VALUE_TO_SET"
+    value = "hey kapa"
+  }
+
+}
+
+data "kubernetes_service" "example" {
+  metadata {
+    name = "${helm_release.backend.name}-chart"
+  }
+}
+
+output "host-name" {
+  value = "http://${data.kubernetes_service.example.load_balancer_ingress.0.hostname}"
+}
+
 output "build-backend-image" {
   value = "docker build -t ${aws_ecr_repository.backend.repository_url} ./backend && docker push ${aws_ecr_repository.backend.repository_url}"
 }
