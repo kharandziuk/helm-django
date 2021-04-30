@@ -15,7 +15,7 @@ six==1.12.0
 social-auth-app-django==3.1.0
 social-auth-core==3.1.0
 sqlparse==0.3.0
-urllib3==1.25.2
+urllib3==1.25.8
 django-rest-framework-social-oauth2
 djangorestframework
 django-cors-headers
